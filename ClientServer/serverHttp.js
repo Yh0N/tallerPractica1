@@ -1,26 +1,24 @@
-// npm install express body-parser
 const express = require('express');
 const bodyParser = require('body-parser');
 
 const app = express();
 const port = 3000;
 const cors = require('cors');
-// Middleware para parsear JSON
+
 app.use(bodyParser.json());
 app.use(cors()); 
-// Habilitar CORS
+
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Headers', 'Content-Type');
   next();
 });
 const users = [];
-// Ruta para manejar POST requests
+
 app.post('/data', (req, res) => {
   console.log('Datos recibidos:', req.body);
   users.push(req.body);
 
-  // Responder al cliente
   res.json({
     status: 'Datos recibidos!',
     receivedData: req.body
